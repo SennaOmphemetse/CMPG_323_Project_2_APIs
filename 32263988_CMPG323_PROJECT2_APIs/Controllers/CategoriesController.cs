@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using _32263988_CMPG323_PROJECT2_APIs.Models;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace _32263988_CMPG323_PROJECT2_APIs.Controllers
 {
@@ -99,6 +100,8 @@ namespace _32263988_CMPG323_PROJECT2_APIs.Controllers
             return CreatedAtAction("GetCategory", new { id = category.CategoryId }, category);
         }
 
+        
+
         // DELETE: api/Categories/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Category>> DeleteCategory(Guid id)
@@ -113,6 +116,22 @@ namespace _32263988_CMPG323_PROJECT2_APIs.Controllers
             await _context.SaveChangesAsync();
 
             return category;
+        }
+
+        [HttpPatch("{id}")]
+        public async Task<ActionResult<Category>> UpdateCategory(Guid id, JsonPatchDocument<Category> jsonOptions)
+        {
+
+
+            var cate = await _context.Category.FindAsync(id);
+            if (cate == null)
+            {
+                return NotFound();
+            }
+
+            jsonOptions.ApplyTo(cate);
+            await _context.SaveChangesAsync();
+            return NoContent();
         }
 
         private bool CategoryExists(Guid id)

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using _32263988_CMPG323_PROJECT2_APIs.Models;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace _32263988_CMPG323_PROJECT2_APIs.Controllers
 {
@@ -115,6 +116,21 @@ namespace _32263988_CMPG323_PROJECT2_APIs.Controllers
             return device;
         }
 
+        [HttpPatch("{id}")]
+        public async Task<ActionResult<Device>> UpdateCategory(Guid id, JsonPatchDocument<Device> jsonOption)
+        {
+
+
+            var dev = await _context.Device.FindAsync(id);
+            if (dev == null)
+            {
+                return NotFound();
+            }
+
+            jsonOption.ApplyTo(dev);
+            await _context.SaveChangesAsync();
+            return NoContent();
+        }
         private bool DeviceExists(Guid id)
         {
             return _context.Device.Any(e => e.DeviceId == id);

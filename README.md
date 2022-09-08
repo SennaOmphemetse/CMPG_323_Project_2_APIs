@@ -30,3 +30,5 @@ Sarathlal Saseendra. 2020. Authentication And Authorization In ASP.NET Core Web 
 
 Anon. 2020. Issuer and Audience in JWT .net core https://stackoverflow.com/questions/62153268/issuer-and-audience-in-jwt-net-core Date of access: 05 Sep. 2022.
 
+## DOC
+Anon. (n.d). Setting UP API Doc https://docs.google.com/document/d/1AMr_Gf4FEWC4N53Yea0k4makXSRpV2yIio3zYoHMHpQ/edit Date of access: 07 Sep. 2022.
